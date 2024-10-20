@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aventura en el Bosque Encantado</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #2e2e2e;
+            color: #f4f4f4;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .choices {
+            display: flex;
+            justify-content: center;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px 30px;
+            font-size: 1em;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Aventura en el Bosque Encantado</h1>
+        <p id="story"></p>
+        <div class="choices">
+            <button id="choice1" onclick="makeChoice(1)"></button>
+            <button id="choice2" onclick="makeChoice(2)"></button>
+        </div>
+    </div>
+
+    <script>
+        const storyData = [
+            {
+                text: "Te encuentras en un bosque encantado, rodeado de árboles altos y oscuros. De repente, escuchas un ruido. ¿Qué haces?",
+                choices: [
+                    { text: "Investigar el ruido", nextIndex: 1 },
+                    { text: "Ignorar y seguir caminando", nextIndex: 2 }
+                ]
+            },
+            {
+                text: "Te acercas al ruido y descubres un pequeño duende atrapado en una trampa. Él te suplica que lo ayudes.",
+                choices: [
+                    { text: "Ayudar al duende", nextIndex: 3 },
+                    { text: "Dejarlo y seguir adelante", nextIndex: 4 }
+                ]
+            },
+            {
+                text: "Sigues caminando y, de repente, te encuentras en un claro donde hay un antiguo árbol. Algo brilla en su base.",
+                choices: [
+                    { text: "Acercarte al árbol", nextIndex: 5 },
+                    { text: "Regresar por donde viniste", nextIndex: 6 }
+                ]
+            },
+            {
+                text: "El duende te agradece y te ofrece un amuleto mágico. ¿Lo aceptas?",
+                choices: [
+                    { text: "Aceptar el amuleto", nextIndex: 7 },
+                    { text: "Rechazar el amuleto", nextIndex: 8 }
+                ]
+            },
+            {
+                text: "Decides seguir tu camino y te adentras más en el bosque, pero sientes que te has perdido.",
+                choices: [
+                    { text: "Tratar de encontrar el camino de regreso", nextIndex: 9 },
+                    { text: "Seguir adelante", nextIndex: 10 }
+                ]
+            },
+            {
+                text: "Te acercas al árbol y descubres un antiguo tesoro escondido. ¡Has encontrado riquezas inimaginables!",
+                choices: []
+            },
+            {
+                text: "Regresas por donde viniste y llegas a casa sano y salvo. Fin de la aventura.",
+                choices: []
+            },
+            {
+                text: "Aceptas el amuleto y descubres que tiene poderes mágicos que te ayudan en tu viaje.",
+                choices: []
+            },
+            {
+                text: "Decides no aceptar el amuleto y continúas tu aventura sin él. Fin de la aventura.",
+                choices: []
+            },
+            {
+                text: "Tratas de encontrar el camino de regreso, pero te pierdes más. Fin de la aventura.",
+                choices: []
+            },
+            {
+                text: "Sigues adelante y encuentras una salida del bosque. ¡Has sobrevivido! Fin de la aventura.",
+                choices: []
+            }
+        ];
+
+        let currentIndex = 0;
+
+        function startGame() {
+            currentIndex = 0;
+            updateStory();
+        }
+
+        function makeChoice(choice) {
+            const nextIndex = storyData[currentIndex].choices[choice - 1].nextIndex;
+            currentIndex = nextIndex;
+            updateStory();
+        }
+
+        function updateStory() {
+            const story = storyData[currentIndex];
+            document.getElementById("story").innerText = story.text;
+            const choices = story.choices;
+
+            document.getElementById("choice1").style.display = choices.length > 0 ? "block" : "none";
+            document.getElementById("choice2").style.display = choices.length > 1 ? "block" : "none";
+
+            if (choices.length > 0) {
+                document.getElementById("choice1").innerText = choices[0].text;
+            } else {
+                document.getElementById("choice1").innerText = "";
+            }
+
+            if (choices.length > 1) {
+                document.getElementById("choice2").innerText = choices[1].text;
+            } else {
+                document.getElementById("choice2").innerText = "";
+            }
+        }
+
+        // Iniciar el juego
+        startGame();
+    </script>
+</body>
+</html>
